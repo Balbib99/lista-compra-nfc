@@ -1,0 +1,9 @@
+{
+  "name": "Despensa - Lista de la compra",
+  "short_name": "Despensa",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f7f5f0",
+  "theme_color": "#2f6f4f",
+  "icons": []
+}

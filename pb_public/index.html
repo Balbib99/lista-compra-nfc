@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#2f6f4f" />
+  <title>Despensa</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>🧺 Lista de la compra</h1>
+  </header>
+
+  <main id="app">
+    <p id="no-list" hidden>
+      Falta el código de la lista en la URL (parámetro <code>?list=...</code>).
+    </p>
+
+    <form id="add-form" hidden>
+      <input
+        id="name-input"
+        type="text"
+        placeholder="¿Qué necesitas?"
+        required
+        maxlength="200"
+        autocomplete="off"
+      />
+      <input
+        id="quantity-input"
+        type="text"
+        placeholder="Cant."
+        maxlength="30"
+        autocomplete="off"
+      />
+      <select id="importance-input">
+        <option value="normal" selected>Normal</option>
+        <option value="importante">Importante</option>
+        <option value="opcional">Si acaso</option>
+      </select>
+      <label id="photo-label" for="photo-input" title="Adjuntar foto">
+        📷
+        <input id="photo-input" type="file" accept="image/*" capture="environment" hidden />
+      </label>
+      <button type="submit">Añadir</button>
+    </form>
+
+    <ul id="item-list"></ul>
+
+    <button id="clear-list-btn" type="button" hidden>🧹 Compra terminada</button>
+  </main>
+
+  <div id="photo-modal" hidden>
+    <img id="photo-modal-img" alt="Foto del producto" />
+  </div>
+
+  <div id="toast" hidden>
+    <span id="toast-msg"></span>
+    <button id="toast-undo" type="button">Deshacer</button>
+  </div>
+
+  <script src="vendor/pocketbase.umd.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
