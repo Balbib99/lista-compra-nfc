@@ -220,16 +220,16 @@ See `tasks/plan.md` for phases, checkpoints, and risks.
 
 ---
 
-## Task 9: Docker en la Raspberry Pi
+## Task 9: Docker en la Raspberry Pi ✅
 
 **Description:** Instalar Docker Engine y el plugin de Compose en la Raspberry Pi (Raspberry Pi OS 64-bit).
 
 **Acceptance criteria:**
-- [ ] `docker --version` y `docker compose version` funcionan en la Pi
-- [ ] El usuario de la Pi puede ejecutar `docker` sin `sudo` (grupo `docker`)
+- [x] `docker --version` y `docker compose version` funcionan en la Pi (Docker 29.8.1, Compose v5.5.1)
+- [x] El usuario de la Pi puede ejecutar `docker` sin `sudo` (grupo `docker`)
 
 **Verification:**
-- [ ] Manual: `docker run hello-world` en la Pi
+- [x] Manual: `docker run hello-world` en la Pi — confirmado, arquitectura `arm64v8`.
 
 **Dependencies:** None (puede hacerse en paralelo a las Fases 1-2)
 
@@ -239,16 +239,16 @@ See `tasks/plan.md` for phases, checkpoints, and risks.
 
 ---
 
-## Task 10: `docker-compose.yml`
+## Task 10: `docker-compose.yml` ✅
 
 **Description:** Definir los 3 servicios (pocketbase, caddy, duckdns-updater) con volúmenes persistentes y `restart: unless-stopped`.
 
 **Acceptance criteria:**
-- [ ] `docker compose config` valida sin errores
-- [ ] `docker compose up -d` levanta los 3 servicios en la Pi
+- [x] `docker compose config` valida sin errores
+- [x] `docker compose up -d` levanta los 3 servicios en la Pi
 
 **Verification:**
-- [ ] Manual: `docker compose ps` muestra los 3 contenedores "healthy"/"running"
+- [x] Manual: los 3 contenedores arrancaron correctamente en la Pi real (logs confirmados: PocketBase, DuckDNS y Caddy funcionando). Hubo que corregir un olvido: publicar el puerto 8090 de PocketBase hacia la LAN (no estaba en el `ports:` inicial).
 
 **Dependencies:** Task 9
 
@@ -265,11 +265,11 @@ See `tasks/plan.md` for phases, checkpoints, and risks.
 **Description:** Configurar Caddy para servir `despensa4b.duckdns.org` con certificado automático vía DNS-01 (plugin `caddy-dns/duckdns`), proxy-pasando a PocketBase.
 
 **Acceptance criteria:**
-- [ ] Caddy obtiene certificado válido sin necesidad de abrir el puerto 80
-- [ ] `https://despensa4b.duckdns.org` sirve la PWA correctamente
+- [x] Caddy obtiene certificado válido sin necesidad de abrir el puerto 80 (confirmado en los logs: `"certificate obtained successfully"`, challenge `dns-01`)
+- [ ] `https://despensa4b.duckdns.org` sirve la PWA correctamente — pendiente de abrir el puerto 443 en el router (Task 12)
 
 **Verification:**
-- [ ] Manual: acceder desde el navegador y comprobar el candado HTTPS válido
+- [ ] Manual: acceder desde el navegador y comprobar el candado HTTPS válido — pendiente hasta Task 12
 
 **Dependencies:** Task 10
 
@@ -280,16 +280,16 @@ See `tasks/plan.md` for phases, checkpoints, and risks.
 
 ---
 
-## Task 12: Token DuckDNS + puerto 443
+## Task 12: Token DuckDNS + puerto 443 ✅
 
 **Description:** Configurar el contenedor actualizador de DuckDNS con el token de la cuenta, y abrir (solo) el puerto 443 en el router hacia la IP local de la Pi.
 
 **Acceptance criteria:**
-- [ ] El registro DNS de `despensa4b.duckdns.org` se actualiza automáticamente si cambia la IP pública
-- [ ] La app es accesible desde fuera de la red doméstica (datos móviles)
+- [x] El registro DNS de `despensa4b.duckdns.org` se actualiza automáticamente si cambia la IP pública (confirmado en logs: `"IP(s) unchanged"`, actualiza sin error)
+- [x] La app es accesible desde fuera de la red doméstica (datos móviles)
 
 **Verification:**
-- [ ] Manual: acceder a la URL con el wifi de casa desconectado (datos móviles)
+- [x] Manual: probado por el usuario con wifi desconectado (datos móviles) — funcionó correctamente. Hubo que crear la regla de reenvío en el router **general** de la casa (el dispositivo de la habitación no tiene IP pública, no puede hacer NAT hacia internet).
 
 **Dependencies:** Task 11
 
@@ -300,16 +300,16 @@ See `tasks/plan.md` for phases, checkpoints, and risks.
 
 ---
 
-## Task 13: Migrar esquema y datos a la Pi
+## Task 13: Migrar esquema y datos a la Pi ✅
 
 **Description:** Exportar la colección `items` (esquema y reglas) de la instancia local y aplicarla a la instancia de la Pi.
 
 **Acceptance criteria:**
-- [ ] La colección `items` en la Pi tiene el mismo esquema y las mismas reglas que en local
-- [ ] Flujo completo probado contra la instancia de la Pi
+- [x] La colección `items` en la Pi tiene el mismo esquema y las mismas reglas que en local (aplicado automáticamente por `pb_migrations/`, sin exportación manual)
+- [x] Flujo completo probado contra la instancia de la Pi
 
 **Verification:**
-- [ ] Manual: repetir el checklist de la Fase 2 pero contra `https://despensa4b.duckdns.org`
+- [x] Manual: checklist completo (foto, importancia, comprado, comentario, vaciar) probado por el usuario desde datos móviles contra `https://despensa4b.duckdns.org` — funcionó correctamente.
 
 **Dependencies:** Task 8, Task 12
 
@@ -319,16 +319,19 @@ See `tasks/plan.md` for phases, checkpoints, and risks.
 
 ---
 
-## Task 14: `list_id` definitivo + pegatinas NFC
+## Task 14: `list_id` definitivo + pegatinas NFC ✅
 
 **Description:** Generar el/los `list_id` secreto(s) definitivos y grabarlos en las pegatinas NFC con NFC Tools, apuntando a `https://despensa4b.duckdns.org/?list=<id-secreto>`.
 
 **Acceptance criteria:**
-- [ ] Pasar el móvil (Android e iPhone) por la pegatina abre la lista correcta
-- [ ] El `list_id` no es fácil de adivinar (aleatorio, suficientemente largo)
+- [x] Pasar el móvil (Android confirmado; iPhone pendiente de confirmar) por la pegatina abre la lista correcta
+- [x] El `list_id` no es fácil de adivinar (20 caracteres aleatorios, ~100 bits de entropía)
 
 **Verification:**
-- [ ] Manual: prueba física con pegatina y móvil real, ambos sistemas operativos
+- [x] Manual: prueba física con pegatina y móvil Android real — funcionó a la primera.
+- [ ] Pendiente: repetir la prueba física con un iPhone cuando se pueda (sigue siendo el único hueco abierto desde la Fase 2).
+
+**`list_id` definitivo:** `ai4bl3842mawmvlml48s` (no lo cambies salvo que sospeches que se ha filtrado).
 
 **Dependencies:** Task 13
 
@@ -338,16 +341,16 @@ See `tasks/plan.md` for phases, checkpoints, and risks.
 
 ---
 
-## Task 15: Proteger el panel admin de PocketBase
+## Task 15: Proteger el panel admin de PocketBase ✅
 
 **Description:** Restringir el acceso a `/_/` (Admin UI de PocketBase) en Caddy, por ejemplo con basic auth, para que no quede expuesto públicamente junto al resto de la app.
 
 **Acceptance criteria:**
-- [ ] Acceder a `https://despensa4b.duckdns.org/_/` pide autenticación adicional
-- [ ] El resto de la app (`/api/...`, frontend) sigue siendo accesible sin esa autenticación
+- [x] Acceder a `https://despensa4b.duckdns.org/_/` pide autenticación adicional (confirmado por el usuario en el navegador)
+- [x] El resto de la app (`/api/...`, frontend) sigue siendo accesible sin esa autenticación
 
 **Verification:**
-- [ ] Manual: comprobar ambos casos desde el navegador
+- [x] Manual: confirmado por el usuario (panel admin pide credenciales) y verificado de forma independiente desde fuera — `curl` a `/_/` → `401`, `curl` a `/api/collections/items/records` → `200` sin pedir nada.
 
 **Dependencies:** Task 11
 
@@ -363,11 +366,13 @@ See `tasks/plan.md` for phases, checkpoints, and risks.
 **Description:** Completar `manifest.json` con iconos y colores, y añadir un service worker mínimo que cachee los estáticos (HTML/CSS/JS) para carga instantánea.
 
 **Acceptance criteria:**
-- [ ] "Añadir a pantalla de inicio" funciona en Android e iPhone y usa un icono propio
-- [ ] La app carga instantáneamente en visitas repetidas (estáticos cacheados)
+- [ ] "Añadir a pantalla de inicio" funciona en Android e iPhone y usa un icono propio — icono, manifest y `start_url` listos; **pendiente de instalar en un móvil real**
+- [ ] La app carga instantáneamente en visitas repetidas (estáticos cacheados) — `sw.js` listo; el navegador integrado de pruebas no pudo registrar el service worker (limitación del propio entorno, no del código), **pendiente de confirmar en móvil real**
 
 **Verification:**
 - [ ] Manual: instalar en un móvil real y comprobar
+
+**Icono:** diseñado por el usuario (carrito de la compra verde), recortado y generado en 32/192/512px. Color de tema de toda la app actualizado a `#017453` para combinar.
 
 **Dependencies:** Task 14
 

@@ -254,6 +254,12 @@ async function handleSubmit(event) {
   await loadItems();
 }
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(console.error);
+  });
+}
+
 function init() {
   if (!listId) {
     noListEl.hidden = false;

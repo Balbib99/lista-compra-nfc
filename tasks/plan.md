@@ -38,16 +38,16 @@ Construimos primero la app en local (PocketBase + frontend estático) para itera
 
 ### Phase 3: Infraestructura y despliegue remoto (Raspberry Pi)
 
-- [ ] Task 9: Instalar Docker Engine + Compose plugin en la Raspberry Pi
-- [ ] Task 10: `docker-compose.yml` con PocketBase + Caddy + actualizador DuckDNS
-- [ ] Task 11: `Caddyfile` con DNS-01 (`caddy-dns/duckdns`) para `despensa4b.duckdns.org`
-- [ ] Task 12: Configurar token DuckDNS + abrir puerto 443 en el router hacia la Pi
-- [ ] Task 13: Migrar esquema y probar la app desplegada en la Pi
+- [x] Task 9: Instalar Docker Engine + Compose plugin en la Raspberry Pi
+- [x] Task 10: `docker-compose.yml` con PocketBase + Caddy + actualizador DuckDNS
+- [x] Task 11: `Caddyfile` con DNS-01 (`caddy-dns/duckdns`) para `despensa4b.duckdns.org`
+- [x] Task 12: Configurar token DuckDNS + abrir puerto 443 en el router hacia la Pi
+- [x] Task 13: Migrar esquema y probar la app desplegada en la Pi
 
 ### Checkpoint: Acceso remoto funcionando
-- [ ] La app carga por HTTPS en `https://despensa4b.duckdns.org/...` desde datos móviles (fuera de la wifi de casa)
-- [ ] Los contenedores se reinician solos tras un reinicio de la Pi
-- [ ] Revisión con el usuario antes de continuar
+- [x] La app carga por HTTPS en `https://despensa4b.duckdns.org/...` desde datos móviles (fuera de la wifi de casa)
+- [x] Los contenedores se reinician solos tras un reinicio de la Pi — confirmado por el usuario tras un `reboot` real
+- [x] Revisión con el usuario antes de continuar
 
 ### Phase 4: NFC y cierre de seguridad
 
