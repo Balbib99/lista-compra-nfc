@@ -25,6 +25,8 @@ services:
     environment:
       - DOMAIN=${DOMAIN}
       - DUCKDNS_API_TOKEN=${DUCKDNS_API_TOKEN}
+      - ADMIN_USER=${ADMIN_USER}
+      - ADMIN_PASSWORD_HASH=${ADMIN_PASSWORD_HASH}
     depends_on:
       - pocketbase
     restart: unless-stopped

@@ -3,5 +3,9 @@
 		dns duckdns {env.DUCKDNS_API_TOKEN}
 	}
 
+	basic_auth /_/* {
+		{$ADMIN_USER} {$ADMIN_PASSWORD_HASH}
+	}
+
 	reverse_proxy pocketbase:8090
 }
