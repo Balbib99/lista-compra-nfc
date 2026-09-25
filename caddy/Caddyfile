@@ -1,0 +1,7 @@
+{$DOMAIN} {
+	tls {
+		dns duckdns {env.DUCKDNS_API_TOKEN}
+	}
+
+	reverse_proxy pocketbase:8090
+}
