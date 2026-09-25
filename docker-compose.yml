@@ -7,6 +7,8 @@ services:
       - ./pb_data:/pb_data
       - ./pb_public:/pb_public
       - ./pb_migrations:/pb_migrations
+    ports:
+      - "8090:8090" # solo accesible dentro de tu red local, no expuesto a internet
     restart: unless-stopped
 
   caddy:
