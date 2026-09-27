@@ -2,6 +2,22 @@ const pb = new PocketBase('/');
 
 const listId = new URLSearchParams(window.location.search).get('list');
 
+// Esta Raspberry Pi puede servir la lista de varias casas a la vez, cada una
+// aislada por su propio list_id. Para que "Añadir a pantalla de inicio" abra
+// la lista correcta de cada casa, cada una necesita su propio manifest.json
+// (el start_url es lo único que cambia). Al añadir una casa nueva: generar su
+// list_id, copiar manifest.json a manifest-<nombre>.json con ese list_id, y
+// registrarla aquí.
+const HOUSEHOLD_MANIFESTS = {
+  ai4bl3842mawmvlml48s: 'manifest.json',
+  g6ldpf12bla9drw55ax9: 'manifest-casa2.json',
+};
+
+const manifestFile = HOUSEHOLD_MANIFESTS[listId];
+if (manifestFile) {
+  document.getElementById('manifest-link').setAttribute('href', manifestFile);
+}
+
 const noListEl = document.getElementById('no-list');
 const formEl = document.getElementById('add-form');
 const nameInput = document.getElementById('name-input');

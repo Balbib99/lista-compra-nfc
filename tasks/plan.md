@@ -51,13 +51,13 @@ Construimos primero la app en local (PocketBase + frontend estático) para itera
 
 ### Phase 4: NFC y cierre de seguridad
 
-- [ ] Task 14: Generar `list_id` secreto definitivo y grabar las pegatinas NFC (NFC Tools)
-- [ ] Task 15: Proteger el panel admin de PocketBase (Caddy basic auth o similar)
-- [ ] Task 16: PWA instalable (iconos del manifest + service worker de cache básico)
+- [x] Task 14: Generar `list_id` secreto definitivo y grabar las pegatinas NFC (NFC Tools)
+- [x] Task 15: Proteger el panel admin de PocketBase (Caddy basic auth o similar)
+- [x] Task 16: PWA instalable (iconos del manifest + service worker de cache básico)
 
 ### Checkpoint: Completo
-- [ ] Todos los criterios de éxito del SPEC.md cumplidos
-- [ ] Probado end-to-end con pegatina real en Android e iPhone
+- [x] Todos los criterios de éxito del SPEC.md cumplidos (Android)
+- [ ] Probado end-to-end con pegatina real en Android (✅) e iPhone (pendiente — único hueco abierto en todo el proyecto)
 
 ## Risks and Mitigations
 

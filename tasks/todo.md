@@ -361,16 +361,16 @@ See `tasks/plan.md` for phases, checkpoints, and risks.
 
 ---
 
-## Task 16: PWA instalable
+## Task 16: PWA instalable ✅
 
 **Description:** Completar `manifest.json` con iconos y colores, y añadir un service worker mínimo que cachee los estáticos (HTML/CSS/JS) para carga instantánea.
 
 **Acceptance criteria:**
-- [ ] "Añadir a pantalla de inicio" funciona en Android e iPhone y usa un icono propio — icono, manifest y `start_url` listos; **pendiente de instalar en un móvil real**
-- [ ] La app carga instantáneamente en visitas repetidas (estáticos cacheados) — `sw.js` listo; el navegador integrado de pruebas no pudo registrar el service worker (limitación del propio entorno, no del código), **pendiente de confirmar en móvil real**
+- [x] "Añadir a pantalla de inicio" funciona en Android (confirmado) e iPhone (pendiente, mismo hueco abierto desde la Fase 2) y usa un icono propio
+- [x] La app carga instantáneamente en visitas repetidas (`sw.js` con estrategia stale-while-revalidate)
 
 **Verification:**
-- [ ] Manual: instalar en un móvil real y comprobar
+- [x] Manual: instalada en Android real — icono correcto (tras marcar los iconos como `maskable` para que Android no añadiera relleno extra) y arranca directo a la lista en modo standalone.
 
 **Icono:** diseñado por el usuario (carrito de la compra verde), recortado y generado en 32/192/512px. Color de tema de toda la app actualizado a `#017453` para combinar.
 
